@@ -1,0 +1,70 @@
+body {
+  background-color: #00587a;
+}
+
+.nav-color {
+  background-color: #0f3057;
+}
+
+#card-teams,
+#saved-teams {
+  margin-top: 15px;
+}
+
+.card {
+  background-color: #008891;
+  color: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-mt {
+  margin-top: 30px;
+}
+
+.card-hover {
+  transition: transform 0.3s;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+}
+
+.img-teams {
+  margin: 50px auto;
+  width: 200px;
+  height: 200px;
+}
+
+.img-standings {
+  width: 25px;
+  height: 25px;
+  margin-bottom: -8px;
+}
+
+.span-bold {
+  font-weight: 700;
+}
+
+.span-left {
+  margin-left: 10px;
+}
+
+.a-bold {
+  font-weight: 700;
+}
+
+.a-teams {
+  color: peachpuff;
+}
+
+th,
+td {
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .span-left {
+    display: none;
+  }
+}

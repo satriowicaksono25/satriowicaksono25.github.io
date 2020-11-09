@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BolaYuk</title>
+    <meta name="description" content="Premier League">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Mendaftarkan web app manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#16243c">
+
+    <!-- Icon -->
+    <link rel="shortcut icon" type="image/png" href="/img/football-badge.png">
+    <link rel="icon" type="image/png" href="/img/football-badge.png">
+    <link rel="apple-touch-icon" href="/img/football-badge-ios.png">
+</head>
+
+<body>
+    <!-- Navigasi -->
+    <nav class="nav-color" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo" id="logo-container">BolaYuk</a>
+            <a href="./index.html" class="sidenav-trigger" data-target="nav-mobile">
+                <i class="material-icons">arrow_back</i>
+            </a>
+
+            <ul class="topnav right hide-on-med-and-down"></ul>
+            <ul class="sidenav" id="nav-mobile"></ul>
+        </div>
+    </nav>
+
+    <!-- Konten -->
+    <div class="container" id="body-content"></div>
+
+    <!-- Tombol simpan artikel -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red" id="save">
+            <i class="large material-icons">save</i>
+        </a>
+    </div>
+
+    <!-- Tombol delete artikel -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red" id="delete">
+            <i class="large material-icons">delete</i>
+        </a>
+    </div>
+
+    <!-- Script -->
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/idb.js"></script>
+    <script src="/js/db.js"></script>
+
+    <script>
+        // Mendaftarkan service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker
+                    .register('/service-worker.js')
+                    .then(() => console.log('Pendaftaran ServiceWorker berhasil'))
+                    .catch(() => console.log('Pendaftaran ServiceWorker gagal.'));
+            });
+        } else {
+            console.log('ServiceWorker belum didukung browser ini.');
+        }
+
+        // Request API dan SaveForLater
+        document.addEventListener('DOMContentLoaded', function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let isFromSaved = urlParams.get('saved');
+
+            const btnSave = document.getElementById('save');
+            const btnDelete = document.getElementById('delete');
+
+            if (isFromSaved) {
+                // Hide fab jika dimuat dari indexed db
+                btnSave.style.display = 'none';
+                btnDelete.style.display = 'block';
+
+                // ambil artikel lalu tampilkan
+                getSavedTeamsId();
+            } else {
+                btnSave.style.display = 'block';
+                btnDelete.style.display = 'none';
+                var item = getTeamsId();
+            }
+
+            btnSave.onclick = function () {
+                console.log('Tombol FAB di klik.');
+                item.then(article => saveForLater(article));
+            }
+
+            const idTeam = urlParams.get('id');
+            btnDelete.onclick = function () {
+                deleteData(parseInt(idTeam));
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+    "name": "BolaYuk",
+    "short_name": "BolaYuk",
+    "description": "Aplikasi informasi sepak bola",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#16243c",
+    "theme_color": "#16243c",
+    "icons": [{
+            "src": "/img/maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/img/maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "gcm_sender_id": "7786257642"
+}
